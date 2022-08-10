@@ -11,7 +11,7 @@ The "Gaussian_Images_tutorial" folder, which contains the program to generate th
 The MD_sampling folder, which contains the programs and the files needed to run the cryo-CV method for MD data. In particular, the MD data here is from the VGVAPG (hexapeptide) system (see: Donati, L. & Keller, B. G. Girsanov reweighting for metadynamics simulations. J. Chem. Phys. 149, 072335. https://doi.org/10.1063/1.5027728 (2018).) (See the README file within the corresponding folder).
 
 * Julian Giraldo-Barreto, David Silva, Sonya Hanson, Bob Carpenter, Alex H. Barnett, Erik H. Thiede & Pilar
-  Cossio. 2021
+  Cossio. 2022
 
 
 
