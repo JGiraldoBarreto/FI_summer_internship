@@ -1,0 +1,20 @@
+######## Documentation for toy system sampling - Cryo-CV ########
+
+This folder contains the necessary files to run the Cryo-CV method for a toy system. The toy system consist in a set of gaussian images (i.e coordinate points in the 2D plane, with gaussian noise added), following an underlying distribution (See de "synthetic images" documentation).
+
+The files included here are:
+
+1) run_python_script.sh
+2) cryoCV.py
+3) rmsd_md_path.txt
+4) Images_from_Grid_for_Hexapeptide_*.txt
+
+1) run_python_script.sh: run as "bash run_python_script.sh"
+
+This script runs the "cryoCV.py" program. As arguments, it gives the kappa value (for the harmonic restriction), the "image" file, the "initial path" file, and the inverse Temperature value at which the images were generated. please note that the image file has in its name the inverse Temp. value. In case a running for different temperatures is needed, a for cycle runs over the temperature, changing the file's name.
+
+2) cryoCV.py: Program to do the sampling and the optimization of an initial path (e.g rmsd_md_path.txt), using a set of images (e.g Images_from_Grid_for_Hexapeptide_1.0.txt), for a toy system. The following particular features are pre-fixed: The sampling variance (nu), the gaussian images variance (sigma), number of samples (sampling_steps), the optimization steps (gradient_steps), and the gradient step size (gradient_step_size), but any parameter can be changed. THe sigma parameter should be equal to the one used in generate the images. For sigma, it is recomended 0.5 <= sigma <= 1.5.
+
+3) rmsd_md_path.txt: Initial path file. It contains a Nx2 array, with N the number of nodes, and 2 the number of coordinates ((x,y) coordinates in this case).
+
+4) Images_from_Grid_for_Hexapeptide_*.txt: Gaussian Images file. It contains a Wx2 array, with W the total number of images, and 2 the number of coordinates ((x,y) coordinates in this case).
