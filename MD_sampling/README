@@ -1,0 +1,39 @@
+README file to run MD sampling:
+
+This folder contains the necessary files to run the MD sampling from a pdb structural path. The main programs are:
+
+0) run.sh
+1) run_gmx_script.sh
+2) gmx_sample_script.sh
+3) run_gmx_script_2.sh & gmx_sample_script_2.sh
+4) frames_tejectories_extract.sh
+5) run_python_script.sh
+6) cryoCV_diff_kappa.py
+
+
+0) run.sh: executes all the Cryo-CV programs.
+
+1) run_gmx_script.sh:
+
+This program executes the main command to run the "gmx_sample_script.sh" program. Please notice that the name of the pdb structures should be "node_xx.pdb", where "xx" is the number of that particular node (e.g: node_5.pdb). "run_gmx_script.sh" runs from the node 2, to the node 9, but it can be extended to any number of nodes, as long as the last value is N-1, with N the total number of nodes. 
+
+2) gmx_sample_script.sh: 
+
+This program creates a new folder per node, copy the necesary files to run Gromacs in that folder, generate the file "plumed.dat" to make the sampling with Plumed, and generate the trajectory that contains the samples from a particular node. Three folders are necessary to run the program:
+
+	a)cryo_md_path/ : This folder contain the nodes of the path in pdb format, named as "node_xx.pdb", where "xx" is the number of that 		particular node (e.g: node_5.pdb).
+
+	b)box_size_files/ : This folder contains one file per node with the box size used by Gromacs. The box size per model should be checked 		in order to have the same number of waters as posible for each node. This should be done for the user by hand, and you only need to 	      do once. In the case of the specific system here (Hexapeptide system), specific values of box size were estimated, but you must to 	    check before what values works for you! If the same box size works for all the nodes of the path, just use that value in all the 		  box_size files.
+
+	c)restraint_rmsd_files/ : This folder contains one file per node with the restraint positions used by Plumed in the "plumed.dat" file.		In the case of the specific system here (Hexapeptide system), the rmsd respect to open_state.pdb and closed_state.pdb given by 		      MDAnalysis (python3) is used.
+
+
+3) run_gmx_script_2.sh & gmx_sample_script_2.sh: 
+
+run_gmx_script_2.sh execute gmx_sample_script_2.sh, and gmx_sample_script_2.sh uses Plumed to generate the new samples, but in this case, generatea new topology file and the use of box size parameters are not needed. gmx_sample_script_2.sh also reads automatically the optimized CV values from the python optimzation program, to run the new sampling. The new restrictions are saved in the New_restraint_files/ folder.
+
+4) frames_tejectories_extract.sh: This program takes the trajectory file that contains the sampling (previously changed to pdb format by "gmx_sample_script.sh"), and separate it in frames. The number of frames is defined within the mdp file used to run the sampling (In this case in the npt.mdp file). After separate the frames, the las 100 samples are deleted. The frames are saved in the folder "traj_frames/".
+
+5) run_python_script.sh: Runs the program "cryoCV_diff_kappa.py", with the parameters needed in the command line. (See the Syntax in the header)
+
+6) cryoCV_diff_kappa.py: Runs the Cryo-CV method for a toy system. You need to specify the value of Kappa (Harmonic restraint), the set of images, the initial path, and the temperature value the images were generated. In the example presented here, the value of the temperature should be in the images file name, since it is practical if you are working at different temperatures, but you can remove it if better. Because this is for the toy system, the images are Gaussian images. The "sigma" value for the images is set at 0.5, and the "nu" value for the node sampling is set at 20. 
